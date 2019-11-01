@@ -1,8 +1,8 @@
 <template>
   <div class="loginForm">
     <el-form ref="form" :rules="rules" :model="form" label-width="100px" class="demo-ruleForm">
-      <el-form-item prop="nickname" label="昵称">
-        <el-input v-model="form.nickname" placeholder="请输入昵称" />
+      <el-form-item prop="username" label="昵称">
+        <el-input v-model="form.username" placeholder="请输入昵称" />
       </el-form-item>
       <el-form-item prop="password" label="密码">
         <el-input v-model="form.password" placeholder="请输入密码" />
@@ -16,25 +16,30 @@ export default {
   data () {
     return {
       form: {
-        nickname: '',
-        password: ''
+        username: '13813813813',
+        password: '12'
       },
       rules: {
-        nickname: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
+        username: [{ required: true, message: '请输入昵称', trigger: 'blur' }],
         // eslint-disable-next-line standard/object-curly-even-spacing
         password: [{ required: true, message: '请输入密码', trigger: 'blur' }]
       }
     }
   },
   methods: {
-    headlerLogin (token) {
-      this.$axios.post('/accounts/login', token).then((res) => {
-        console.log(res)
+    headlerLogin () {
+      // eslint-disable-next-line no-undef
+      this.store.dispatch('user/setUser', data).then(() => {
+        this.$message.success('登录成功')
+        this.$router.psuh('/')
       })
     }
   }
 }
 </script>
 
-<style>
+<style lang="less" scoped>
+.loginForm {
+  padding: 20px;
+}
 </style>

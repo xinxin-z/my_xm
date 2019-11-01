@@ -45,7 +45,7 @@
             <el-dropdown-item>消息</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-        <nuxt-link class="login_link" to="/user">
+        <nuxt-link class="login_link" to="/user/login">
           登录 / 注册
         </nuxt-link>
       </div>
@@ -54,7 +54,8 @@
 </template>
 
 <script>
-export default {}
+export default {
+}
 </script>
 
 <style lang="less"  scoped>

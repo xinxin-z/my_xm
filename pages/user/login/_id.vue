@@ -5,9 +5,9 @@
         <div
           v-for="(item,index) in ['登录','注册']"
           :key="index"
+          :class="currentIndex==index?'active':''"
           class="title_item"
-          :class="currentIndex===index?'active':''"
-          @click="headlerLogin(index)"
+          @click="$router.push('/user/login/'+index)"
         >
           {{ item }}
         </div>
@@ -15,7 +15,7 @@
 
       <div class="login_main_content">
         <!-- 登录组件 -->
-        <div v-if="currentIndex===0">
+        <div v-if="currentIndex==0">
           <loginFrom />
         </div>
         <!-- 注册组件 -->
@@ -37,12 +37,7 @@ export default {
   },
   data () {
     return {
-      currentIndex: 1
-    }
-  },
-  methods: {
-    headlerLogin (index) {
-      this.currentIndex = index
+      currentIndex: this.$route.params.id
     }
   }
 }

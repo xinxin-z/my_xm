@@ -49,7 +49,7 @@ export default {
     return {
       form: {
         // 手机号码
-        username: '13800000000',
+        username: '13813813813',
         // 昵称
         nickname: '',
         // 手机验证码
@@ -75,10 +75,13 @@ export default {
     submitForm () {
       this.$refs.form.validate((valid) => {
         if (valid) {
+          // eslint-disable-next-line no-console
           console.log(valid)
           const { password2, ...resForm } = this.form
           this.$axios.post('/accounts/register', resForm).then((res) => {
+            // eslint-disable-next-line no-console
             console.log(res)
+            this.$router.push('/user/login/0')
           })
         } else {
           return false
@@ -87,6 +90,7 @@ export default {
     },
     // 手机验证码
     headlercaptcha () {
+      // eslint-disable-next-line no-console
       console.log(1)
 
       const tel = this.form.username
