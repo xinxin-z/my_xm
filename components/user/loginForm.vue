@@ -7,7 +7,9 @@
       <el-form-item prop="password" label="密码">
         <el-input v-model="form.password" placeholder="请输入密码" />
       </el-form-item>
-      <el-button type="primary" style="width:100%;" @click="headlerLogin">登录</el-button>
+      <el-button type="primary" style="width:100%;" @click="headlerLogin">
+        登录
+      </el-button>
     </el-form>
   </div>
 </template>
@@ -29,9 +31,9 @@ export default {
   methods: {
     headlerLogin () {
       // eslint-disable-next-line no-undef
-      this.store.dispatch('user/setUser', data).then(() => {
+      this.$store.dispatch('user/setUserInfo', this.form).then(() => {
         this.$message.success('登录成功')
-        this.$router.psuh('/')
+        this.$router.push('/')
       })
     }
   }

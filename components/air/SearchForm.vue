@@ -31,7 +31,7 @@
         </el-form-item>
         <el-form-item label="选择日期">
           <el-col>
-            <el-date-picker v-model="city.departDate" type="date" style="width: 100%;" />
+            <el-date-picker v-model="city.departDate" type="date" style="width: 100%;" value-format="yyyy-MM-dd" />
           </el-col>
         </el-form-item>
         <el-button type="primary" style="width:100%;" @click="headerSearch">
@@ -101,6 +101,17 @@ export default {
       ]
     },
     headerSearch () {
+      // 本地存储
+      const cityArr = localStorage.getItem('city') || '[]'
+      // const arr = []
+      if (cityArr) {
+        // eslint-disable-next-line no-const-assign
+        const arr = JSON.parse(cityArr)
+        arr.push(this.city)
+        localStorage.setItem('city', JSON.stringify(arr))
+      // console.log(this.city)
+      }
+
       this.$router.push({ path: 'air/fliesList', query: this.city })
     }
   }

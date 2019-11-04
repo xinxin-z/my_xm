@@ -14,7 +14,7 @@ export const mutations = {
 // 定义actions
 export const actions = {
   setUserInfo (context, userInfo) {
-    this.$axios.post('/accounts/login', userInfo).then((res) => {
+    return this.$axios.post('/accounts/login', userInfo).then((res) => {
       console.log(res)
       if (res.status === 200) {
         context.commit('setUserInfo', res.data)

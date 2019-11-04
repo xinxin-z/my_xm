@@ -9,7 +9,7 @@
         <p>{{ data.org_airport_name }}{{ data.org_airport_quay }}</p>
       </div>
       <div class="duration">
-        2小时15分
+        {{ duration }}
       </div>
       <div class="item_dest_date">
         <p>{{ data.arr_time }}</p>
@@ -33,7 +33,7 @@
           </div>
           <div class="seat_row_btns">
             <div>
-              <el-button type="warning" size="mini">
+              <el-button type="warning" size="mini" @click="headerselect(data.id,item.seat_xid)">
                 选定
               </el-button>
               <p>剩余：{{ item.discount }}</p>
@@ -54,9 +54,32 @@ export default {
       isShow: false
     }
   },
+  computed: {
+    duration () {
+      const startTime = this.data.dep_datetime
+      const endTime = this.data.arr_datetime
+      const startDate = new Date(startTime)
+      const endDate = new Date(endTime)
+
+      const duration = endDate - startDate
+
+      const hour = parseInt(duration / 1000 / 60 / 60)
+
+      const minutes = duration / 1000 / 60 - hour * 60
+
+      return `${hour}时${minutes}分`
+    }
+  },
   mounted () {
     // console.log(this.data)
+  },
+  methods: {
+    headerselect (id, seatxid) {
+      // eslint-disable-next-line no-undef
+      this.$router.push({ path: '/air/order', query: { id, seatxid } })
+    }
   }
+
 }
 </script>
 
