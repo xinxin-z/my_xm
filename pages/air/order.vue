@@ -5,16 +5,18 @@
     </div>
     <!-- 侧边栏 -->
     <div class="a_side">
-      乘车信息
+      <orderoill />
     </div>
   </div>
 </template>
 
 <script>
 import orderForm from '@/components/air/orderForm.vue'
+import orderoill from '@/components/air/orderoill.vue'
 export default {
   components: {
-    orderForm
+    orderForm,
+    orderoill
   },
   data () {
     return {
@@ -27,7 +29,7 @@ export default {
     this.$axios
       .get('/airs/' + this.$route.query.id, {
         params: {
-          seatxid: this.$route.query.seat_xid
+          seat_xid: this.$route.query.seat_xid
         }
       })
       .then((res) => {
@@ -40,12 +42,18 @@ export default {
 
 <style lang='less' socped>
 .order{
+    width: 1000px;
+  margin: 0 auto;
   display: flex;
  .order_main{
 flex:6;
 }
  .a_side{
-flex:4;
+    margin-top: 20px;
+   margin-left: 30px;
+   height: 300px;
+   border: 1px solid #ccc;
+flex:3;
  }
 }
 </style>
