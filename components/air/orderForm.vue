@@ -41,60 +41,70 @@
           </el-button>
         </el-form-item>
       </div>
-      <div class="safe">
-        <p>保险</p>
-        <el-checkbox v-model="checked3" label="航空意外险：￥30/份*1 最高赔付260万" border />
-        <el-checkbox v-model="checked4" label="航空延误险：￥30/份*1 最高赔付300万" border />
+      <p>保险</p>
+      <div v-for="(item,index) in ticket.insurances" :key="index+1" class="safe">
+        <el-checkbox v-model="checked3" border>
+          {{ item.type }}:￥{{ item.price }}/份*1最高赔付{{ item.compensation }}
+        </el-checkbox>
       </div>
     </el-form>
     <div class="line">
       <p>联系人</p>
-      <el-form
-        ref="users"
-        label-width="100px"
-        class="demo-ruleForm"
-      >
-        <el-form-item prop="nickname" label="姓名">
-          <el-input v-model="users.nickname" placeholder="请输入姓名" />
-        </el-form-item>
-        <el-form-item prop="captcha" label="手机号">
-          <el-input v-model="users.captcha">
-            <template slot="append">
-              <div @click="headlercaptcha">
-                验证码
-              </div>
-            </template>
-          </el-input>
-        </el-form-item>
-        <el-form-item prop="username" label="验证码">
-          <el-input v-model="users.username" placeholder="请输入手机号" />
-        </el-form-item>
-      </el-form>
+      <div class="contact_content">
+        <el-form label-width="80px">
+          <el-form-item label="姓名">
+            <el-input v-model="contactName" />
+          </el-form-item>
+          <el-form-item label="手机">
+            <el-input v-model="contactPhon">
+              <template slot="append">
+                发送验证码
+              </template>
+            </el-input>
+          </el-form-item>
+          <el-form-item label="验证码">
+            <el-input />
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary">
+              立即创建
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  props: {
+    ticket: {
+      type: Object,
+      // eslint-disable-next-line vue/require-valid-default-prop
+      default: {}
+    }
+  },
   data () {
     return {
-      props: {
-        ticket: {
-          type: Object,
-          default: {}
-        }
-      },
-      users: [{
-        username: '',
-        // 昵称
-        nickname: '',
-        // 手机验证码
-        captcha: ''
-        // 密码
-      }],
+      users: [{ username: '', id: '' }],
       checked3: true,
-      checked4: false
+      insurances: [],
+      // 保险id
+      contactName: '',
+      // 联系人名字
+      contactPhon: '',
+      // 联系人电话
+      invoice: false,
+      // 是否需要发票
+      seat_xid: this.$route.query.seat_xid,
+      // 座位id
+      air: this.$route.query.id
+      // 航班id
     }
+  },
+  mounted () {
+    console.log(this.ticket)
   },
   methods: {
     headerAdd () {
@@ -110,12 +120,12 @@ export default {
       this.users.splice(index, 1)
     }
   }
-
 }
 </script>
 
 <style lang='less' socped>
 .order_style{
+  height: 800px;
     .title{
 font-size: 22px;
     }
@@ -129,17 +139,11 @@ font-size: 22px;
      padding-top: 15px;
       border-top: 1px dashed #ccc;
  }
- .safe{
-     border-top: 1px dashed #ccc;
-    border-bottom: 1px dashed #ccc;
      p{
          font-size: 20px;
      }
-     height: 210px;
      .el-checkbox{
          margin-top:15px;
-     }
-
  }
  .decrement{
      position: absolute;

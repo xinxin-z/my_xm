@@ -55,6 +55,19 @@
 
 <script>
 export default {
+  computed: {
+    userinfo () {
+      return this.$store.state.user.userinfo
+    }
+  },
+  mounted () {
+    const userStr = localStorage.getItem('userinfo')
+    if (userStr) {
+      // 把值设置到vuex
+      const userinfo = JSON.parse(userStr)
+      this.$store.commit('user/setUser', userinfo)
+    }
+  }
 }
 </script>
 

@@ -31,7 +31,7 @@ export default {
   methods: {
     headlerLogin () {
       // eslint-disable-next-line no-undef
-      this.$store.dispatch('user/setUserInfo', this.form).then(() => {
+      this.$store.dispatch('user/setUser', this.form).then(() => {
         this.$message.success('登录成功')
         this.$router.push('/')
       })

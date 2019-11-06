@@ -5,7 +5,7 @@
     </div>
     <!-- 侧边栏 -->
     <div class="a_side">
-      <orderoill />
+      <orderoill :ticket="ticket" />
     </div>
   </div>
 </template>
@@ -34,7 +34,7 @@ export default {
       })
       .then((res) => {
         this.ticket = res.data
-        console.log(res)
+        console.log(this.ticket)
       })
   }
 }

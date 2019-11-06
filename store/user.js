@@ -1,25 +1,31 @@
-// 定义state函数，返回对象
+// 1 定义state 函数 返回对象  名称不能改
 export const state = () => ({
-  userInfo: {
+  // this.$store.state.user.userinfo.user.nickname
+  userinfo: {
     token: '',
     user: {}
   }
 })
-// 定义mutations
+
+// 2 定义 mutations
 export const mutations = {
-  setUserInfo (state, userInfo) {
-    state.userInfo = userInfo
+  setUser (state, userinfo) {
+    state.userinfo = userinfo
   }
 }
-// 定义actions
+
+// 3 定义 actions 负责异步
 export const actions = {
-  setUserInfo (context, userInfo) {
-    return this.$axios.post('/accounts/login', userInfo).then((res) => {
-      console.log(res)
-      if (res.status === 200) {
-        context.commit('setUserInfo', res.data)
-        localStorage.setItem('travel_user', JSON.stringify(res.data))
-      }
-    })
+  setUser (context, form) {
+    // this.$axios.post  执行完毕后就会返回一个promise对象
+    // 第一个return是必须的  文档所规定
+    return this.$axios.post('/accounts/login', form)
+      .then((res) => {
+        context.commit('setUser', res.data)
+        // 把 用户信息 存入 本地存储中
+        localStorage.setItem('userinfo', JSON.stringify(res.data))
+
+        return res.data
+      })
   }
 }
